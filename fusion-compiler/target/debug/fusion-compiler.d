@@ -1,0 +1,1 @@
+/Users/surfer/Desktop/fusion-lang/fusion-compiler/target/debug/fusion-compiler: /Users/surfer/Desktop/fusion-lang/fusion-compiler/src/ast/mod.rs /Users/surfer/Desktop/fusion-lang/fusion-compiler/src/main.rs
