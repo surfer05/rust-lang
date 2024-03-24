@@ -1,6 +1,6 @@
 use std::io;
 
-fn main() {
+fn main1() {
     println!("Hello, world!");
 
     let x = 5;
@@ -39,6 +39,58 @@ fn main() {
 
     another_function(5);
     print_labeled_measurement(10, 'h');
+
+    let number = 3;
+
+    if number < 5 {
+        println!("condition was true");
+    } else {
+        println!("condition was false");
+    }
+
+    let condition = true;
+    let number = if condition { 5 } else { 6 };
+
+    println!("The value of number is : {number}");
+
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+
+    let mut count = 0;
+
+    'counting_up: loop {
+        println!("count = {count}");
+        let mut remaining = 10;
+
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+        count += 1;
+    }
+
+    println!("The result is {result}");
+
+    for number in (1..4).rev() {
+        println!("{number}!");
+    }
+
+    let a = [10, 20, 30, 40, 50];
+    for element in a {
+        println!("The value is {element}");
+    }
 }
 
 fn another_function(x: i32) {
@@ -47,4 +99,25 @@ fn another_function(x: i32) {
 
 fn print_labeled_measurement(value: i32, unit_label: char) {
     println!("The measurement is : {value}{unit_label}");
+}
+
+fn nth_fibonacci_number(n: i32) -> i32 {
+    if n <= 0 || n == 1 {
+        return n;
+    } else {
+        return nth_fibonacci_number(n - 1) + nth_fibonacci_number(n - 2);
+    }
+}
+
+fn main() {
+    for int in 0..15 {
+        let number: i32 = nth_fibonacci_number(int);
+        println!("{number}");
+    }
+    let temp: f32 = f_to_c(100.0);
+    println!("{temp}");
+}
+
+fn f_to_c(t_in_f: f32) -> f32 {
+    return (t_in_f - 32.0) * (5.0 / 9.0);
 }
