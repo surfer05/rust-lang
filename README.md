@@ -56,5 +56,26 @@
 
 > The `F` permission : Expected whenever an expression uses an input reference(like &strings[0]), or returns an output reference(like `return s_ref`).
 
-- 1) Input/Output references are treated differently than references within a function body
-- 2) Rust uses a different mechanism, the `F` permission, to check hte safety of those references.
+- 1. Input/Output references are treated differently than references within a function body
+- 2. Rust uses a different mechanism, the `F` permission, to check hte safety of those references.
+
+> `Rc::clone` : clones a pointer to `s` and not the data itself. At runtime, the `Rc` checks when the last `Rc` pointing to data has been dropped, and then deallocates the data.
+
+> For resolving a reference return to a Stack : How long should my String live? Who should be in charge of deallocating it ?
+
+- **It is very rare for Rust functions to take ownership of heap-owning data structures like `Vec` and `String`**
+
+- In general, writing Rust functions is a careful balance of asking for the _right_ level of permissions.
+
+- Copying a `String` copies a pointer to heap data, Copying an i32 does not. In technical terms, Rust says that the type `i32` implements the `Copy` trait, while `String` does not implement `Copy`.
+
+- **If a value does not own heap data, then it can be copied without a move. Except for mutalbe references. For example &mut i32 is not a copyable type.**
+
+### The Slice Type
+- Lets us reference a contiguous sequence of elements in a collection rather than the whole collection.
+- It is a non-owning pointer.
+- Slices are pointers with metadata. Metadata is the length of the slice.
+
+> A String is a vector of bytes (Vec\<u8>\), which contains a length `len` and a buffer `buf` that has a pointer `ptr` and a capacity `cap`.
+
+- `s.as_bytes()` produces an immutable reference to `s`.

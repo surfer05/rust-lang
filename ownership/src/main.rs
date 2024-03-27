@@ -1,71 +1,78 @@
-use core::prelude::rust_2015;
-
+use std::rc::Rc;
 fn main() {
-    println!("Hello, world!");
+    println!("Hello World");
 
-    let first = String::from("Ferris");
-    let full = add_suffix(first);
-    println!("{full}");
+    let v: Vec<i32> = vec![0, 1, 2];
+    let n_ref: &i32 = &v[0];
+    let n: i32 = *n_ref;
 
-    let mut x: Box<i32> = Box::new(1);
-    let a: i32 = *x;
+    let v: Vec<String> = vec![String::from("Hello world")];
+    let s_ref: &String = &v[0];
+    println!("{s_ref}");
+
+    let mut s: String = v[0].clone();
+    s.push('!');
+    println!("{s}");
+
+    let mut v3: Vec<String> = vec![String::from("Hello World")];
+    let mut s2: String = v3.remove(0);
+    s2.push('!');
+    println!("{s2}");
+    assert!(v3.len() == 0);
+
+    // Mutating Different Tuple Fields
+    let mut name = (String::from("Ferris"), String::from("Rustacean"));
+
+    let first = &name.0;
+
+    name.1.push_str(", Esq.");
+    println!("{first} {}", name.1);
+
+    // Mutating Different Array Elements
+    let mut a = [0, 1, 2, 3];
+    let x = &mut a[1];
     *x += 1;
-
-    let r1: &Box<i32> = &x;
-    let b: i32 = **r1;
-
-    let r2: &i32 = &*x;
-    let c: i32 = *r2;
-
-    println!("{} {} {}!", a, b, c);
-
-    let x: Box<i32> = Box::new(-1);
-    let x_abs1 = i32::abs(*x); // explicit dereference
-    let x_abs2 = x.abs(); // implicit dereference
-    assert_eq!(x_abs1, x_abs2);
-
-    let r: &Box<i32> = &x;
-    let r_abs1 = i32::abs(**r);
-    let r_abs2 = r.abs();
-    assert_eq!(r_abs1, r_abs2);
-
-    let s = String::from("Hello");
-    let s_len1 = str::len(&s);
-    let s_len2 = s.len();
-    assert_eq!(s_len1, s_len2);
-
-    let mut v: Vec<i32> = vec![1, 2, 3];
-    v.push(4);
-
-
-    // Buggy code ahead
-    // let mut v: Vec<i32> = vec![1,2,3];
-    // let num: &i32 = &v[2];
-    // v.push(4);
-    // println!("Third element is {}", *num);
-    // buggy code ends
-
-    let mut v : Vec<i32> = vec![1,2,3];
-    let num : &mut i32 = &mut v[2];
-
-    let num2: &i32 = &*num;
-
-    println!("{} {}", *num, *num2);
-
-    let s = String::from("Hello World");
-    let s_ref = &s;
-
-    drop(s);
-    println!("{}", s_ref);
-
+    println!("{a:?}");
 }
 
-fn add_suffix(mut name: String) -> String {
-    name.push_str("Jr.");
-    name
+fn return_a_string() -> String {
+    let s = String::from("Hello world");
+    s
 }
 
-fn first(strings : &Vec<String>) -> &String {
-    let s_ref = &strings[0];
-    s_ref
+fn return_a_string1() -> &'static str {
+    "Hello World"
 }
+
+fn return_a_string2() -> Rc<String> {
+    let s = Rc::new(String::from("Hello World"));
+    Rc::clone(&s)
+}
+
+fn return_a_string3(output: &mut String) {
+    output.replace_range(.., "Hello world");
+}
+
+fn stringify_name_with_title(name: &Vec<String>) -> String {
+    let mut name_clone = name.clone();
+    name_clone.push(String::from("Esq."));
+    let full = name_clone.join(" ");
+    full
+}
+
+fn stringify_name_with_title1(name: &Vec<String>) -> String {
+    let mut full = name.join(" ");
+    full.push_str("Esq.");
+    full
+}
+//This solution works because slice::join already copies the data in name into the string full.
+
+// fn add_big_strings(dst: &mut Vec<String>, src: &[String]) {
+//     let largest: &String = dst.iter().max_by_key(|s| s.len()).unwrap();
+
+//     for s in src {
+//         if s.len() > largest.len() {
+//             dst.push(s.clone());
+//         }
+//     }
+// }
