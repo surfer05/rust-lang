@@ -79,3 +79,23 @@
 > A String is a vector of bytes (Vec\<u8>\), which contains a length `len` and a buffer `buf` that has a pointer `ptr` and a capacity `cap`.
 
 - `s.as_bytes()` produces an immutable reference to `s`.
+
+- #### A little Recap
+    - Boxes are pointers owning data on the heap
+    - References are now-owning pointers
+    - Local variables can hold either data or pointers
+    - Slices are a special kind of reference that refer to a contiguous sequence of data in memory.
+    - A move of a variable with a non-copyable type( like Box<T> or String) requires the __RO__ permissions, and the move eliminates all permissions on the variable
+
+    - What is ok and what is not ok ->
+        - printing an immutable reference is ok
+        - mutating an immutable reference is not ok
+        - mutating the immutably borrowed data is not ok
+        - moving data out of the reference is not ok
+        - mutating a mutable references is ok
+        - accessing the mutably borrowed data is not ok
+    
+    - Some undefined behaviour
+        - Immutable borrows remove the `W` permission to avoid ``` `use-after-free` : where freed memory is read or written```
+        - ``` `double-free` : where memory is freed twice```. Dereferences of references to non-copyable data do not have the `O` permission to avoid double-frees
+        - The `unsafe` feature doesn't completely disable the borrow checker, but rather enables the use of specific unsafe features like raw pointers.
