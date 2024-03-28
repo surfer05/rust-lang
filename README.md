@@ -99,3 +99,33 @@
         - Immutable borrows remove the `W` permission to avoid ``` `use-after-free` : where freed memory is read or written```
         - ``` `double-free` : where memory is freed twice```. Dereferences of references to non-copyable data do not have the `O` permission to avoid double-frees
         - The `unsafe` feature doesn't completely disable the borrow checker, but rather enables the use of specific unsafe features like raw pointers.
+
+
+
+### Structs
+- Note that the entire instane of a struct should be marked mutable.
+- Unit like structs: `struct StructName;` 
+    - They are useful when you need to implement a trait on some type but don't have any data that you want to store in the type itself.
+- Lifetimes ensure that the data referenced by a struct is valid for as long as the struct is.
+- `Display` trait is for presenting values to an end-user while `Debug` is for developers' internal use.
+    - Methods
+        - declare them with `fn` keyword and a name, can have parameters and a return value, they contain some code that's run when the method is called from somewhere else.
+        - Some differences from functions : 
+            - defined within a context of a struct( or an enum or a trait object)
+            - their first parameter is always `self`, representing the instance of the struct the method is being called on.
+            - _method syntax_ : add a dot followed by the method name, parentheses, and any arguments
+            - `&self` is short for `self: &Self`.
+            - Within an `impl` block, the type `Self` is an alias for the type that the `impl` block is for.
+            - Methods can take ownership of `self`, borrow `self` immutably, or borrow `self` mutably, just as they can any other parameter.
+        - we can choose to give a method the same name as one of the struct's fields.
+        - When we follow `type.method` with parentheses, Rust knows we mean the method, and when we don't use parentheses, Rust know we mean the field with that name.
+        - _Getters_ 
+            - Often, when we give a method the same name as a field we want it to only return the value in the field and do nothing else. Such methods are called `getters`. 
+            - Getters are useful because we can make the field private but the method public ,thus enabling read-only access to that field.
+        - Methods can only be implemented for types(e.g. impl Point), not variables( like p)
+
+    - _Associated Functions_
+        - Functions that don't have `self` as their first parameter( and thus are not methods) because they don't need an instance of the type to work with.
+        - Asstd funcs. that aren't methods are often used for constructors that will return a new instance of the struct. Often called `new`.
+        - Associated function is namespaced by the struct like `Rectangle::square(3)`.
+        - The `::` syntax is used for both associated function and namespaces created by modules.
