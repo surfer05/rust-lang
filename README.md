@@ -181,3 +181,27 @@
 - We can construct
 - If we make a struct public, all of it's individual fields should be made public too
 - Instead, if we make an enum public, all of its variants are then public.
+
+
+### Vectors
+- default integer type is `i32`
+- Non-copyable types cannot be moved out of a vector by indexing
+- Only methods such as `vec::remove` permit moving out of a vector.
+- The important detail : Iterators contain a pointer to data within the vector.
+
+### String and &str
+- Both `String` and string slices are UTF-8 encoded.
+- Updating a String 
+    - we can use `+` operator, or `format!` macro to concatenate `String` values.
+    - append to a `String` with `push_str`. It takes a string slice, so no ownership taken
+    - the `push` method takes a single character as a parameter and adds it to the `String`.
+- A `String` is a wrapper over a `Vec<u8>`
+- The best way to operate on pieces of strings is to be explicit about whether you want characters or bytes.
+- `&str` is a promise that the byte sequence it points to will always be valid UTF-8. Therefore a programmer who wants to e.g. print out an `&str` never needs to check if it is valid, or worry about accidentally interpreting an invalid string.
+
+### HashMap
+- `HashMap<K, V>` : stores a mapping of keys of type `K` to values of type `V` using a _hashing_ function.
+- All the keys must have same type and all values must have same type.
+- and Ownership
+    - Types that implement `Copy` trait like `i32`, values are copied into the hash map
+    - Owned values like `String`, values will be moved and the hash map will be the owner of those values.
