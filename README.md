@@ -1,3 +1,6 @@
+### TODO
+Using a hash map and vectors, create a text interface to allow a user to add employee names to a department in a company. For example, “Add Sally to Engineering” or “Add Amir to Sales.” Then let the user retrieve a list of all people in a department or all people in the company by department, sorted alphabetically.
+
 ` rustup doc` for the documentation
 `println!` when calling a rust macro and `println` when calling a function
 
@@ -205,3 +208,4 @@
 - and Ownership
     - Types that implement `Copy` trait like `i32`, values are copied into the hash map
     - Owned values like `String`, values will be moved and the hash map will be the owner of those values.
+- Iterating over a hash map happens in an arbitrary order.
