@@ -28,8 +28,25 @@
 - `Generics` : abstract stand-ins for concrete types or other properties.
 - `Traits` : to define behavior in a generic way.
 - `Lifetimes`: a variety of generics that give the compiler information about how references relate to each other.
+- _Monomorphization_ : turning generic code into specific code by filling in the concrete types that are used when compiled.
 
+#### Traits
+- Defines functionality a particular type has and can share with other types.
+- Used to define shared behavior in an abstract way.
+- similar to _interfaces_ with some differences.
+- _trait bounds_ : specify that a generic type can be any type that has certain behavior.
+- "orphan rule" : cannot implement an external trait for an external type, to ensure code doesn't break if two crates provide conflicting implementations.
+- _Blanket Implementations_ : Implementations of trait on any type that satisfies the trait bounds. e.g.
+```
+impl<T : Display> ToString for T {
+    // --snip--
+}
+```
 
+### Validating References with Lifetimes
+- Ensure that references are valid as long as we need them to be.
+- _Lifetime_ : the scope for which that reference is valid.
+- _Dangling References_ : cause a program to reference data other than the data it's intended to reference.
 
 ### Notables
 - `fs::read_to_string`; opens the file, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it.
