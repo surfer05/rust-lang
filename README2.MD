@@ -101,6 +101,9 @@ struct ImportantExcerpt<'a> {
 - _Toilet Closures_ -
   - similar to `std::mem::drop`, i.e. a function that moves an argument and causes it to be dropped.
 
+### Cargo and crates.io
+- `cargo doc --open` is best..... for a function and _documentation comment_
+- Re-exporting takes a public item in one location and makes it public in another location, as if it were defined in the other location instead.
 
 ### Notables
 
