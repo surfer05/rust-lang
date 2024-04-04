@@ -93,6 +93,15 @@ struct ImportantExcerpt<'a> {
         - make test files within this folder, and including the root crate in all the files is must.
         - Each integration test file has its own section.
 
+
+
+### Iterators and Closures
+- _Closures_ - a function-like construct you can store in a variable
+- _Iterators_ - a way of processing a series of elements
+- _Toilet Closures_ -
+  - similar to `std::mem::drop`, i.e. a function that moves an argument and causes it to be dropped.
+
+
 ### Notables
 
 - `fs::read_to_string`; opens the file, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it.
