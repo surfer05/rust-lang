@@ -121,6 +121,18 @@ struct ImportantExcerpt<'a> {
   - From `&mut T` to `&mut U` when : `T : DerefMut<Target=U>`
   - From `&mut T` to `&U` when : `T: Deref<Target=U>`
 
+- Drop Trait
+  - use  `std::mem::Drop` to drop a value Early
+
+- `Rc<T>`, the Reference Counted Smart POinter
+  - keeps track of the number of references to a value to determine whether or not the value is still in use. 
+  - doesn't make a deep copy, instead only increases the reference count
+  - drops the value only after all the references have gone out of scope.
+  - only used for single-threaded scenarios
+
+-  `RefCell<T>` and Interior Mutability Pattern
+  - single-threaded scenario only
+   
 ### Notables
 
 - `fs::read_to_string`; opens the file, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it.
