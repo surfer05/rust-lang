@@ -132,7 +132,32 @@ struct ImportantExcerpt<'a> {
 
 -  `RefCell<T>` and Interior Mutability Pattern
   - single-threaded scenario only
-   
+
+
+### Fearless Concurrency
+- _Concurrent programming_ -> different parts of program execute independently
+- _Parallel Programming_ -> different parts of a program execute at the same time.
+- The return type of `thread::spawn` is `JoinHandle`. A `JoinHandle` is an owned value that, when we call the `join` method on it, will wait for its thread to finish.
+- _message passing_ : threads communicate by sending each other messages conatining data.
+
+> Do not communicate by sharing memory; instead, share memory by communicating.
+
+- _Channels_ : General programming concept by which data is sent from one thread to another.
+- can create using new channels using `mpsc::channel()` ; mpsc : _multiple producer, single consumer_
+
+- Shared Memory
+  - _Mutex_ : mutual exclusion . 
+  - The lock is a data structure that is part of the mutex that keeps track of who currently has exclusive access to the data.
+  - the mutex is described as _guarding_ the data it holds via the locking system.
+  - Remember the two rules : 
+    - must attempt to acquire the lock before using the data.
+    - When done with the data that the mutex guards, must unlock the data so other threads can acquire the lock.
+
+- `Send` and `Sync` traits
+  - `Send` marker traits indicates that the ownership of values of the type implementing `Send` can be transferred between threads. Though `Rc<T>` does not implement this trait.
+  - `Sync` marker trait indicates that it is safe for the type implementing `Sync` to be referenced from multiple threads.
+  - Any type `T` is `Sync` if `&T` is `Send`.
+
 ### Notables
 
 - `fs::read_to_string`; opens the file, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it.
