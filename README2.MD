@@ -105,6 +105,22 @@ struct ImportantExcerpt<'a> {
 - `cargo doc --open` is best..... for a function and _documentation comment_
 - Re-exporting takes a public item in one location and makes it public in another location, as if it were defined in the other location instead.
 
+
+### Smart Pointers
+- data structures that act like a pointer but also have additional metadata and capabilities.
+- Implement the `Deref` and `Drop` traits.
+- `Deref` - allows a smart pointer struct instance behave like a reference 
+-  `Drop` - customize the code that's run when an instance of the smart pointer goes out of scope.
+  - `Box<T>`
+    - Allow to store data on the heap rather than the stack. On the stack remains the pointer to the heap data.
+    - "Indirection" means that instead of storing a value directly, we should change the data structure to store the value indirectly by storing a pointer to the value instead.
+    - _Deref Coercion_ converts "a reference to a type that implements the `Deref` trait"=> "a reference to another type".
+      - e.g. convert `&String` to `&str` cause `String` implements `Deref` traits such that it returns `&str`
+- Rust does deref coercion when it finds types and trait implementations in three cases :
+  - From `&T` to `&U` when `T : Deref<Target=U>`
+  - From `&mut T` to `&mut U` when : `T : DerefMut<Target=U>`
+  - From `&mut T` to `&U` when : `T: Deref<Target=U>`
+
 ### Notables
 
 - `fs::read_to_string`; opens the file, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it.
