@@ -162,6 +162,10 @@ struct ImportantExcerpt<'a> {
 - `Box<dyn Draw>>` is a trait object; it's a stand-in for any type inside a `Box` that implements the `Draw` trait.
 - _State Pattern_ is that we define a set of states a value can have internally. The states are represented by a set of _state objects_
 
+### Refutability 
+- _Irrefutable_ : that will match for any possible value passed are _irrefutable_. e.g. -> `let x = 5;`
+- _Refutable_ : patterns that can fail to match for some possible value.
+
 ### Notables
 
 - `fs::read_to_string`; opens the file, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it.
