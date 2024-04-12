@@ -158,6 +158,10 @@ struct ImportantExcerpt<'a> {
   - `Sync` marker trait indicates that it is safe for the type implementing `Sync` to be referenced from multiple threads.
   - Any type `T` is `Sync` if `&T` is `Send`.
 
+### OOPs
+- `Box<dyn Draw>>` is a trait object; it's a stand-in for any type inside a `Box` that implements the `Draw` trait.
+- _State Pattern_ is that we define a set of states a value can have internally. The states are represented by a set of _state objects_
+
 ### Notables
 
 - `fs::read_to_string`; opens the file, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it.
